@@ -33,55 +33,54 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
     let fuelStatus = document.getElementById("fuelStatus");
     let cargoStatus = document.getElementById("cargoStatus");
     let h2 = document.getElementById("launchStatus");
-        
-    if(validateInput(pilot) === "Empty" || validateInput(copilot === "Empty") || validateInput(fuelLevel) === "Empty" || validateInput(cargoLevel) === "Empty") {
-        alert(`All fields are required.`)
-        list.style.visibility = "hidden";
+   
+    if(validateInput(pilot) === "Empty" || validateInput(copilot) === "Empty" || validateInput(fuelLevel) === "Empty" || validateInput(cargoLevel) === "Empty") {
+        alert(`All fields are required.`);
     } else if (validateInput(pilot) === "Is a Number" || validateInput(copilot) === "Is a Number") {
-        alert(`Please enter alphabetical letters only.`)
+        alert(`Please enter alphabetical letters only.`);
     } else if (validateInput(cargoLevel) === "Not a Number" || validateInput(fuelLevel) === "Not a Number") {
-        alert(`Please enter numbers only.`)
+        alert(`Please enter numbers only.`);
     } else {
-        list.style.visibility = "visible"
-        pilotStatus.innerHTML = `Pilot Ready`
-        copilotStatus.innerHTML = `Co-pilot Ready`;
+        list.style.visibility = "hidden";
+        pilotStatus.innerHTML = `Pilot ${pilot} is ready for launch`;
+        copilotStatus.innerHTML = `Co-pilot ${copilot} is ready for launch`;
         fuelStatus.innerHTML = "Fuel level high enough for launch";
         cargoStatus.innerHTML = "Cargo mass low enough for launch";
     }
     
 
     //cargo too high, fuel too low
-    if(fuelLevel < 10000 && cargoLevel > 10000 && isNaN(!pilot) && isNaN(!copilot)) {
-        list.style.visibility = "visible";
-        fuelStatus.innerHTML = "Fuel level too low for launch";
-        cargoStatus.innerHTML = "Cargo mass too heavy for launch";
-        h2.innerHTML = 'Shuttle Not Ready for Launch';
-        h2.style.color = "rgb(199, 37, 78)";
-        pilotStatus.innerHTML = `Pilot ${pilot} is ready for launch`;
-        copilotStatus.innerHTML = `Co-pilot ${copilot} is ready for launch`;
+     if(fuelLevel < 10000 && cargoLevel > 10000) {
+            fuelStatus.innerHTML = "Fuel level too low for launch";
+            cargoStatus.innerHTML = "Cargo mass too heavy for launch";
+            h2.innerHTML = 'Shuttle Not Ready for Launch';
+            h2.style.color = "rgb(199, 37, 78)";
+            list.style.visibility = "visible";
+            pilotStatus.innerHTML = `Pilot ${pilot} is ready for launch`;
+            copilotStatus.innerHTML = `Co-pilot ${copilot} is ready for launch`;
 
     //fuel too low, cargo enough    
-    } else if (fuelLevel < 10000 && cargoLevel <= 10000 && isNaN(!pilot) && isNaN(!copilot)) {
-        list.style.visibility = 'visible';
+    } else if (fuelLevel < 10000 && cargoLevel <= 10000) {
         fuelStatus.innerHTML = "Fuel level too low for launch";
-        cargoStatus.innerHTML = "Cargo mass low enough for launch";
         h2.innerHTML = 'Shuttle Not Ready for Launch';
         h2.style.color = 'rgb(199, 37, 78)';
+        list.style.visibility = 'visible';
+        cargoStatus.innerHTML = "Cargo mass low enough for launch";
         pilotStatus.innerHTML = `Pilot ${pilot} is ready for launch`;
         copilotStatus.innerHTML = `Co-pilot ${copilot} is ready for launch`;
 
     //cargo too high, fuel enough
-    } else if (cargoLevel > 10000 && fuelLevel <= 10000 && isNaN(!pilot) && isNaN(!copilot)) {
-        list.style.visibility = "visible";
-        fuelStatus.innerHTML = "Fuel level high enough for launch";
+    } else if (cargoLevel > 10000 && fuelLevel <= 10000) {
         cargoStatus.innerHTML = "Cargo mass too heavy for launch";
         h2.innerHTML = "Shuttle Not Ready for Launch";
         h2.style.color = "rgb(199, 37, 78)";
+        list.style.visibility = "visible";
+        fuelStatus.innerHTML = "Fuel level high enough for launch";
         pilotStatus.innerHTML = `Pilot ${pilot} is ready for launch`;
         copilotStatus.innerHTML = `Co-pilot ${copilot} is ready for launch`;
-
     //enough fuel and cargo    
-    } else if (cargoLevel <= 10000 && fuelLevel <=10000 && isNaN(!pilot) && isNaN(!copilot)) {
+    } else if (cargoLevel <= 10000 && fuelLevel <=10000) {
+        h2.innerHTML = "Shuttle is Ready for Launch";
         list.style.visibility = "visible";
         fuelStatus.innerHTML = "Fuel level high enough for launch";
         cargoStatus.innerHTML = "Cargo mass low enough for launch";
@@ -96,17 +95,17 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
 async function myFetch() {
     let planetsReturned;
 
-    planetsReturned = await fetch("https://handlers.education.launchcode.org/static/planets.json").then( function(response) {
+    planetsReturned = await fetch("https://handlers.education.launchcode.org/static/planets.json").then( function(response) { 
         return(response.json())
         });
 
-    return planetsReturned;
+    return planetsReturned
 }
 
 function pickPlanet(planets) {
     let index = Math.floor(Math.random() * planets.length);
-    let currentPlanet = planets[index];
-    return currentPlanet;
+    let pickedPlanet = planets[index];
+    return pickedPlanet;
 }
 
 module.exports.addDestinationInfo = addDestinationInfo;
