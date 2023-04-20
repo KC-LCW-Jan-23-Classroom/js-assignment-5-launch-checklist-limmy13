@@ -35,17 +35,18 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
     let h2 = document.getElementById("launchStatus");
    
     if(validateInput(pilot) === "Empty" || validateInput(copilot) === "Empty" || validateInput(fuelLevel) === "Empty" || validateInput(cargoLevel) === "Empty") {
-        alert(`All fields are required.`);
+        alert(`All fields are required!`);
     } else if (validateInput(pilot) === "Is a Number" || validateInput(copilot) === "Is a Number") {
-        alert(`Please enter alphabetical letters only.`);
+        alert(`Make sure to enter valid information for each field!`);
     } else if (validateInput(cargoLevel) === "Not a Number" || validateInput(fuelLevel) === "Not a Number") {
-        alert(`Please enter numbers only.`);
+        alert(`Make sure to enter valid information for each field!`);
     } else {
         list.style.visibility = "hidden";
         pilotStatus.innerHTML = `Pilot ${pilot} is ready for launch`;
         copilotStatus.innerHTML = `Co-pilot ${copilot} is ready for launch`;
         fuelStatus.innerHTML = "Fuel level high enough for launch";
         cargoStatus.innerHTML = "Cargo mass low enough for launch";
+        
     }
     
 
@@ -99,13 +100,12 @@ async function myFetch() {
         return(response.json())
         });
 
-    return planetsReturned
+    return planetsReturned;
 }
 
 function pickPlanet(planets) {
     let index = Math.floor(Math.random() * planets.length);
-    let pickedPlanet = planets[index];
-    return pickedPlanet;
+    return planets[index];
 }
 
 module.exports.addDestinationInfo = addDestinationInfo;
