@@ -18,11 +18,11 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
 
 function validateInput(testInput) {
     if (testInput === "" || testInput === null) {
-        return "Empty"
+        return "Empty";
     } else if ((!isNaN(Number(testInput)))) {
-        return "Is a Number"
+        return "Is a Number";
     } else {
-        return "Not a Number"
+        return "Not a Number";
     }
    
 }
@@ -79,6 +79,7 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
         fuelStatus.innerHTML = "Fuel level high enough for launch";
         pilotStatus.innerHTML = `Pilot ${pilot} is ready for launch`;
         copilotStatus.innerHTML = `Co-pilot ${copilot} is ready for launch`;
+        
     //enough fuel and cargo    
     } else if (cargoLevel <= 10000 && fuelLevel <=10000) {
         h2.innerHTML = "Shuttle is Ready for Launch";

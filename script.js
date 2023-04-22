@@ -1,6 +1,6 @@
 window.addEventListener("load", function() {
 
-    const document = window.document
+    // const document = window.document
     let form = document.querySelector("form");
     let pilot = document.querySelector("input[name=pilotName]");
     let copilot = document.querySelector("input[name=copilotName]");
@@ -14,15 +14,13 @@ window.addEventListener("load", function() {
     
     form.addEventListener("submit", function(event){   
         event.preventDefault();
-        
         formSubmission(document, list, pilot.value, copilot.value, fuelLevel.value, cargoLevel.value);
                 
     });
 
     let listedPlanets;
     // Set listedPlanetsResponse equal to the value returned by calling myFetch()
-//window.fetch works but not myFetch()? why?
-    let listedPlanetsResponse = window.fetch("https://handlers.education.launchcode.org/static/planets.json");
+    let listedPlanetsResponse = fetch("https://handlers.education.launchcode.org/static/planets.json");
     listedPlanetsResponse.then(function (response) {
         return response.json(); 
     }).then(function(result) {
